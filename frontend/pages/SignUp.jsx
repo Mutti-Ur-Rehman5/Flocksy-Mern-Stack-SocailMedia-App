@@ -6,6 +6,7 @@ import { IoIosEye, IoIosEyeOff } from "react-icons/io"
 import axios from 'axios'
 import { serverUrl } from "../src/App";
 import {ClipLoader} from "react-spinners"
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -26,6 +27,7 @@ const SignUp = () => {
   const [Username, setUsername] = useState("")
   const [email, setemail] = useState("")
   const [password, setpassword] = useState("")
+  const navigate=useNavigate() //to change route signin py jany ky liye use kar rha
 
   // now we create function to fetch signup api
 
@@ -68,7 +70,7 @@ const SignUp = () => {
           <div className='relative flex items-center justify-center w-[90%] h-[50px] rounded-2xl mt-[10px] border border-black'
             onClick={() => setinputClicked({ ...inputClicked, userName: true })} >
             <label htmlFor="name" className={`text-gray-700 absolute left-[20px] p-[5px] bg-white text-[15px]
-              ${inputClicked.userName ? "top-[-15px]" : ""}`
+              ${inputClicked.Username ? "top-[-15px]" : ""}`
             }> Enter your Username </label>
             <input type="text" id='name2' className='w-[100%] h-[100%] rounded-2xl px-[20px] outline-none border-0' required
               onChange={(e) => setUsername(e.target.value)} value={Username}
@@ -96,11 +98,11 @@ const SignUp = () => {
           </div>
 
           <button className='w-[70%] px-[20px] py-[10px] bg-black text-white font-semibold h-[50px] cursor-pointer rounded-2xl mt-[30px]'
-            onClick={handleSignUp}
+            onClick={handleSignUp} disabled={loading}
           >
             {loading ? <ClipLoader size={30} color="white" /> : "Sign up"}
           </button>
-          <p className='cursor-pointer text-gray-800'>Already Have an Account? <span className=' border-b-2 border-b-black pb-[3px]'>Sign In</span></p>
+          <p className='cursor-pointer text-gray-800' onClick={()=>navigate("/signin")}>  Already Have an Account? <span className=' border-b-2 border-b-black pb-[3px]'>Sign In</span></p>
         </div>
 
         <div className='hidden lg:flex w-[50%] h-full justify-center items-center bg-black flex-col gap-[10px]
