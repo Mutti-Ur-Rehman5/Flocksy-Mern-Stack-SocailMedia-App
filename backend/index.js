@@ -4,7 +4,7 @@ dotenv.config()
 
 import cookieParser from 'cookie-parser'
 import connecttoDb from './config/db.js'
-
+cle
 const app=express()
 import cors from "cors"
 import authRouter from './routes/auth.routes.js';
