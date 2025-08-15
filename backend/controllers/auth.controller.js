@@ -118,7 +118,7 @@ export const signout=async(req,res)=>{
 
 
 // this all for step 1 to get otp
-const sendOtp=async (req,res)=>{
+export const sendOtp=async (req,res)=>{
  
     try{
         const {email}=req.body
@@ -128,7 +128,7 @@ const sendOtp=async (req,res)=>{
         }
         const otp=Math.floor(1000 + Math.random() *9000).toString()
         user.resetOtp=otp,
-        user.otpExpires=new Date.now() + 5*60*1000
+        user.otpExpires=Date.now() + 5*60*1000
         user.isOtpVerified=false
 
         await user.save()
@@ -141,4 +141,67 @@ const sendOtp=async (req,res)=>{
 
 
     }
+}
+// step2 otp mil gya ab verify karo
+
+export const verifyOtp=async(req,res)=>{
+
+
+    try{
+        const{email,otp}=req.body
+        const user=await User.findOne({email})
+        if(!user||user.resetOtp!=otp||user.otpExpires<Date.now()){                 //otp check jo likha jo recieve huwa ya phir expire time guzar gya
+    
+
+            return res.status(400).json({message:"Invalid/Expire otp"})
+
+        }                 
+
+        user.isOtpVerified=true
+        user.resetOtp=undefined      // undefined is liye kiya ky wo empty ho jaye ab likhne ky bad/verify hone ky bad
+        user.otpExpires=undefined
+        
+        await user.save()
+         return res.status(200).json({message:"OTP Verified"})
+
+    }
+    catch(error){
+
+         return res.status(500).json({message:`Verify otp error ${error}`})
+
+
+
+    }
+}
+
+
+// Now in last step 
+//step 3
+// Reset password
+
+export const resetPassword=async(req,res)=>{
+
+try{
+      const{email,password}=req.body
+      const user=await User.findOne({email})
+
+    if(!user||!user.isOtpVerified){
+
+    return res.status(400).json({message:"Otp Verification requored"})
+    }
+
+    const hashedPassword=await bcrypt.hash(password,10)
+    user.password=hashedPassword                              //ab new reset password a gya
+    user.isOtpVerified=false
+    await user.save()
+
+    return res.status(200).json({message:"Password reset Successfully"})
+
+
+}
+catch(error){
+      return res.status(500).json({message:`reset otp ${error}`})
+
+
+}
 }

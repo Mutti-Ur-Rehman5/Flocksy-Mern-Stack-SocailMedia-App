@@ -2,7 +2,7 @@
 // use package node mailer  install in backend 
 //npm install nodemailer
 
-import nodeMailer from "nodemailer"
+import nodemailer from "nodemailer"
 import dotenv from "dotenv"
 dotenv.config()
 const transporter = nodemailer.createTransport({
@@ -17,9 +17,9 @@ const transporter = nodemailer.createTransport({
 
 const sendMail=async(to,otp)=>{
 
-    transporter.sendMail({
+    await transporter.sendMail({
 
-        from:process.env.EMAIL,
+        from:`${process.env.EMAIL}`,
         to,
         subject:"reset your password",
        html: `<p>Your otp for password reset is <b>${otp}</b>. It expires in 5 min.</p>`

@@ -4,12 +4,12 @@ dotenv.config()
 
 import cookieParser from 'cookie-parser'
 import connecttoDb from './config/db.js'
-cle
 const app=express()
 import cors from "cors"
 import authRouter from './routes/auth.routes.js';
 
 import userRouter from './routes/user.routes.js'
+
 
 const port=process.env.PORT ||5000 //IF 8000 NOT WORKING THEN 5000
  
