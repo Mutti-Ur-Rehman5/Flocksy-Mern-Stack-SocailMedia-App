@@ -1,0 +1,30 @@
+// idr otp wala email ka kam karen gy
+// use package node mailer  install in backend 
+//npm install nodemailer
+
+import nodeMailer from "nodemailer"
+import dotenv from "dotenv"
+dotenv.config()
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  port: 465,
+  secure: true, // true for 465, false for other ports
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.EMAIL_PASS,                //email ka orignal pass nahi dalna JO apo pass sy genrate kiya wo
+  },
+});
+
+const sendMail=async(to,otp)=>{
+
+    transporter.sendMail({
+
+        from:process.env.EMAIL,
+        to,
+        subject:"reset your password",
+       html: `<p>Your otp for password reset is <b>${otp}</b>. It expires in 5 min.</p>`
+
+    })
+}
+
+export default sendMail

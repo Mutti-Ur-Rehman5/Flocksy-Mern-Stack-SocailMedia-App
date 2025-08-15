@@ -1,6 +1,7 @@
 
 //this is api
 
+import sendMail from "../config/Mail.js"
 import gentoken from "../config/token.js"
 import User from "../models/user.model.js"
 import bcrypt from "bcryptjs"
@@ -108,6 +109,35 @@ export const signout=async(req,res)=>{
     catch(error){
          
              return res.status(500).json({message:`sigout error ${error}`})
+
+
+    }
+}
+
+// otp ka liye controller
+
+
+// this all for step 1 to get otp
+const sendOtp=async (req,res)=>{
+ 
+    try{
+        const {email}=req.body
+        const user=await User.findOne({email})
+        if(!user){
+            return res.status(400).json({message:"user not found"})
+        }
+        const otp=Math.floor(1000 + Math.random() *9000).toString()
+        user.resetOtp=otp,
+        user.otpExpires=new Date.now() + 5*60*1000
+        user.isOtpVerified=false
+
+        await user.save()
+        await sendMail(email,otp)
+        return res.status(200).json({message:"email successfully send"})
+
+    }
+    catch(error){
+        return res.status(500).json({message:`send otp error ${error}`})
 
 
     }
