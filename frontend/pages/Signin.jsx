@@ -7,6 +7,8 @@ import axios from 'axios'
 import { serverUrl } from "../src/App";
 import {ClipLoader} from "react-spinners"
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setUserData } from '../src/redux/userSlice'
 
 
 
@@ -29,6 +31,7 @@ const Signin = () => {
   const [Username, setUsername] = useState("")
 
   const [password, setpassword] = useState("")
+    const dispatch=useDispatch()
   const navigate=useNavigate() //to change route signin py jany ky liye use kar rha
 
   // now we create function to fetch signup api
@@ -40,11 +43,13 @@ const Signin = () => {
     try {
       const result = await axios.post(`${serverUrl}/api/auth/signin`,
         {  Username, password },
-        { withCredentials: true }
+        { withCredentials: true },
+         
       );
+      console.log("Signin API response =>", result.data);
+      dispatch(setUserData(result.data))
+         setLoading(false)
 
-      console.log(result.data)
-      setLoading(false)
 
     }
     catch (error) {

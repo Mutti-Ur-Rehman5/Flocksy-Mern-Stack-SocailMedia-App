@@ -7,6 +7,8 @@ import axios from 'axios'
 import { serverUrl } from "../src/App";
 import {ClipLoader} from "react-spinners"
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'  // it is hook for changes
+import { setUserData } from '../src/redux/userSlice'
 
 
 
@@ -28,6 +30,7 @@ const SignUp = () => {
   const [Username, setUsername] = useState("")
   const [email, setemail] = useState("")
   const [password, setpassword] = useState("")
+  const dispatch=useDispatch()  // redux ma reducer ma data ponchaye ga
   const navigate=useNavigate() //to change route signin py jany ky liye use kar rha
 
   // now we create function to fetch signup api
@@ -39,11 +42,11 @@ const SignUp = () => {
     try {
       const result = await axios.post(`${serverUrl}/api/auth/signup`,
         { name, Username, email, password },
-        { withCredentials: true }
+        { withCredentials: true },
+        dispatch(setUserData(result.data)),
+        setLoading(false)
       );
 
-      console.log(result.data)
-      setLoading(false)
 
     }
     catch (error) {
