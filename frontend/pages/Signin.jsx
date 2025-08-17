@@ -20,6 +20,8 @@ const Signin = () => {
     }
   )
 
+    const [err, seterr] = useState("")
+
   const [showPassword, setshowPassword] = useState(false)
 
   const [loading, setLoading] = useState(false)  //loader gomany ky liye
@@ -34,8 +36,9 @@ const Signin = () => {
   const handleSignIN = async () => {
 
     setLoading(true)
+    seterr("")
     try {
-      const result = await axios.post(`${serverUrl}/api/auth/signup`,
+      const result = await axios.post(`${serverUrl}/api/auth/signin`,
         {  Username, password },
         { withCredentials: true }
       );
@@ -47,6 +50,7 @@ const Signin = () => {
     catch (error) {
       console.log(error)
       setLoading(false)
+      seterr(error.response?.data?.message)
     }
   }
   return (
@@ -60,7 +64,7 @@ const Signin = () => {
           </div>
       
           <div className='relative flex items-center justify-center w-[90%] h-[50px] rounded-2xl mt-[10px] border border-black'
-            onClick={() => setinputClicked({ ...inputClicked, userName: true })} >
+            onClick={() => setinputClicked({ ...inputClicked, Username: true })} >
             <label htmlFor="name" className={`text-gray-700 absolute left-[20px] p-[5px] bg-white text-[15px]
               ${inputClicked.Username ? "top-[-15px]" : ""}`
             }> Enter your Username </label>
@@ -85,6 +89,8 @@ const Signin = () => {
 
             Forgot Password
           </div>
+
+             {err&&<p className='text-red-600 ' >{err}</p>}
 
           <button className='w-[70%] px-[20px] py-[10px] bg-black text-white font-semibold h-[50px] cursor-pointer rounded-2xl mt-[30px]'
             onClick={handleSignIN} disabled={loading}

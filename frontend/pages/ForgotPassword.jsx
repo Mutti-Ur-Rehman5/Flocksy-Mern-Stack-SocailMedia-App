@@ -11,7 +11,7 @@ const ForgotPassword = () => {
     newPassword: false,
     confirmNewPassword: false
   })
-
+  const [err, seterr] = useState("")
   const [email, setemail] = useState("")
   const [loading, setLoading] = useState(false)
   const [otp, setOTP] = useState("")
@@ -20,6 +20,7 @@ const ForgotPassword = () => {
 
   const handleStep1=async ()=>{
     setLoading(true)
+    seterr("")
     try{
       const result=await axios.post(`${serverUrl}/api/auth/sendOtp`,{email},{withCredentials:true})
       console.log(result.data)
@@ -29,12 +30,14 @@ const ForgotPassword = () => {
     catch(error){
       console.log(error)
         setLoading(false)
+        seterr(error.response?.data?.message)
 
     }
   }
 
     const handleStep2=async ()=>{
         setLoading(true)
+        seterr("")
     try{
       const result=await axios.post(`${serverUrl}/api/auth/VerifyOtp`,{email,otp},{withCredentials:true})
       console.log(result.data)
@@ -45,19 +48,24 @@ const ForgotPassword = () => {
     catch(error){
       console.log(error)
         setLoading(false)
+        seterr(error.response?.data?.message)
 
     }
   }
 
 
    const handleStep3=async ()=>{
+     if(newPassword!==ConfirmNewPassword){
+       
+        return seterr("Password doesnot match")
+      }
+            seterr("")
       setLoading(true)
+  
+      
     try{
 
-      if(newPassword!==ConfirmNewPassword){
-        setLoading(false)
-        return console.log("Password doesnot match")
-      }
+
       const result=await axios.post(`${serverUrl}/api/auth/resetPassword`,{email,password:newPassword},{withCredentials:true})
       console.log(result.data)
         setLoading(false)
@@ -65,7 +73,8 @@ const ForgotPassword = () => {
     }
     catch(error){
       console.log(error)
-        setLoading(false)
+      setLoading(false)
+       seterr(error.response?.data?.message)
 
     }
   }
@@ -91,6 +100,7 @@ const ForgotPassword = () => {
               value={email}
             />
           </div>
+             {err&&<p className='text-red-600 ' >{err}</p>}
           <button
             className='w-[70%] px-[20px] py-[10px] bg-black text-white font-semibold h-[50px] cursor-pointer rounded-2xl mt-[30px]'
             disabled={loading} onClick={handleStep1}
@@ -119,6 +129,7 @@ const ForgotPassword = () => {
               value={otp}
             />
           </div>
+           {err&&<p className='text-red-600 ' >{err}</p>}
           <button
             className='w-[70%] px-[20px] py-[10px] bg-black text-white font-semibold h-[50px] cursor-pointer rounded-2xl mt-[30px]'
             disabled={loading} onClick={handleStep2}
@@ -165,6 +176,7 @@ const ForgotPassword = () => {
               value={ConfirmNewPassword}
             />
           </div>
+           {err&&<p className='text-red-600 ' >{err}</p>}
 
           <button
             className='w-[70%] px-[20px] py-[10px] bg-black text-white font-semibold h-[50px] cursor-pointer rounded-2xl mt-[30px]'

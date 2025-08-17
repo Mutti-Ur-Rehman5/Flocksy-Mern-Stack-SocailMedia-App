@@ -21,6 +21,7 @@ const SignUp = () => {
   )
 
   const [showPassword, setshowPassword] = useState(false)
+  const [err, seterr] = useState("")  // to show error on screen e.g signup email already exist
 
   const [loading, setLoading] = useState(false)  //loader gomany ky liye
   const [name, setname] = useState("")
@@ -34,6 +35,7 @@ const SignUp = () => {
   const handleSignUp = async () => {
 
     setLoading(true)
+    seterr("")
     try {
       const result = await axios.post(`${serverUrl}/api/auth/signup`,
         { name, Username, email, password },
@@ -45,6 +47,7 @@ const SignUp = () => {
 
     }
     catch (error) {
+      seterr(error.response?.data?.message)
       console.log(error)
       setLoading(false)
     }
@@ -68,7 +71,7 @@ const SignUp = () => {
             />
           </div>
           <div className='relative flex items-center justify-center w-[90%] h-[50px] rounded-2xl mt-[10px] border border-black'
-            onClick={() => setinputClicked({ ...inputClicked, userName: true })} >
+            onClick={() => setinputClicked({ ...inputClicked, Username: true })} >
             <label htmlFor="name" className={`text-gray-700 absolute left-[20px] p-[5px] bg-white text-[15px]
               ${inputClicked.Username ? "top-[-15px]" : ""}`
             }> Enter your Username </label>
@@ -96,6 +99,8 @@ const SignUp = () => {
             {!showPassword ? <IoIosEye className='absolute cursor-pointer right-[20px] w-[25px] h-[25px]' onClick={() => setshowPassword(true)} /> :
               <IoIosEyeOff className='absolute cursor-pointer right-[20px] w-[25px] h-[25px]' onClick={() => setshowPassword(false)} />}
           </div>
+
+        {err&&<p className='text-red-600 ' >{err}</p>}
 
           <button className='w-[70%] px-[20px] py-[10px] bg-black text-white font-semibold h-[50px] cursor-pointer rounded-2xl mt-[30px]'
             onClick={handleSignUp} disabled={loading}
