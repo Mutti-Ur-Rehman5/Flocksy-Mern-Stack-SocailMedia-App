@@ -25,3 +25,17 @@ catch(error){
 }
 
 }
+
+export const suggestedUsers=async(req,res)=>{
+
+    try{
+
+        const users=await User.find({_id:{$ne:req.userId}}).select("-password")   //_id:$ne... this is because it show all suggested user expect ourself
+        return res.status(200).json(users)
+
+    }
+    catch(error){
+          return res.status(500).json({message:`get suggested user error ${error}`})
+
+    }
+}

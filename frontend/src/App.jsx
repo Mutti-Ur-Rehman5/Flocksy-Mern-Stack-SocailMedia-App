@@ -6,11 +6,13 @@ import Home from "../pages/Home"
 import ForgotPassword from '../pages/ForgotPassword';
 import { useSelector } from 'react-redux'
 import getCurrentUser from './hooks/getCurrentUser'
+import getSuggestedUser from "./hooks/getSuggestedUser"
 
 export const serverUrl = "http://localhost:8000";
 
 const App = () => {
   getCurrentUser()
+  getSuggestedUser()
   const { userData } = useSelector(state => state.user) // useSelector hook to access redux data
 
   return (

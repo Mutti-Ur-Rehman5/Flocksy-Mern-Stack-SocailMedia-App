@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { setUserData } from '../redux/userSlice'   
 
-const useCurrentUser = () => {
+const CurrentUser = () => {
 
 
     // yeh sab is liye ky jab current user login ho to wo signin or signup py na ja saky or agar user login nahi to wo home page 
@@ -26,4 +26,4 @@ const useCurrentUser = () => {
   }, [])   
 }
 
-export default useCurrentUser
+export default CurrentUser

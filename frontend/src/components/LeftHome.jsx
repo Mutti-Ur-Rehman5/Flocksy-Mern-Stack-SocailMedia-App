@@ -18,6 +18,7 @@ const LeftHome = () => {
         try{
             const result=await axios.get(`${serverUrl}/api/auth/signout`,{withCredentials:true})
             dispatch(setUserData(null))
+            console.log(result.data)
 
         }
         catch(error){
