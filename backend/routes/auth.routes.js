@@ -10,4 +10,5 @@ authRouter.post("/sendOtp",sendOtp)
 authRouter.post("/VerifyOtp",verifyOtp)
 authRouter.post("/resetPassword",resetPassword)
 
+
 export default authRouter
