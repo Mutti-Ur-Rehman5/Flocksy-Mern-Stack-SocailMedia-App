@@ -22,6 +22,19 @@ password:{
 profileImage:{
     type:String
 },
+bio:{
+type:String
+
+},
+profession:{
+type:String
+
+},
+gender:{
+type:String,
+enum:["male","female"]
+
+},
 followers:[
     {type:mongoose.Schema.Types.ObjectId,ref:'User'} //user ka jo follower hoga us ka sab kuch info
     
