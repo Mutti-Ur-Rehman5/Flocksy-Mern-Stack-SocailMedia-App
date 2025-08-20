@@ -75,7 +75,7 @@ export const editProfile=async(req,res)=>{
 
     }
 }
-// to get profile of suggeste users
+// to get profile of suggested users
 export const getProfile=async(req,res)=>{
     try{
 

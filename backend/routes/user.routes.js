@@ -1,6 +1,6 @@
 import express from "express"
 import isAuth from "../middlewares/isAuth.js"
-import { editProfile, getCurrentUser, suggestedUsers } from "../controllers/user.controller.js"
+import { editProfile, getCurrentUser, getProfile, suggestedUsers } from "../controllers/user.controller.js"
 import { upload } from "../middlewares/multer.js"
 
 
@@ -12,6 +12,6 @@ userRouter.get('/current',isAuth,getCurrentUser)   //isAuth middleware laga diya
 
 userRouter.get("/suggested",isAuth,suggestedUsers)
 userRouter.post("/editProfile",isAuth,upload.single("profileImage"),editProfile)
-userRouter.get("/getProfile/:Username",isAuth,suggestedUsers)
+userRouter.get("/getProfile/:Username",isAuth,getProfile)
 
 export default userRouter

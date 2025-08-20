@@ -22,7 +22,7 @@ const App = () => {
       <Route path='/signin' element={!userData ? <Signin /> : <Navigate to="/" />} />
       <Route path='/forgotPassword' element={!userData ? <ForgotPassword /> : <Navigate to="/" />} />
       <Route path='/' element={userData ? <Home /> : <Navigate to="/signin" />} />
-      <Route  path='/prile/:Username' element={userData?<Profile/>:<Navigate to={"/signin"}/>}/>
+      <Route  path='/profile/:Username' element={userData?<Profile/>:<Navigate to={"/signin"}/>}/>
     </Routes>
     
   )
