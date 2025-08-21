@@ -55,7 +55,7 @@ export const editProfile=async(req,res)=>{
         if(sameUserWithUserName && sameUserWithUserName._id!=req.userId)  {
            return res.status(400).json({message:"Username already exist"})
         }
-        let profileImage;
+        let profileImage =user.profileImage;
         if(req.file){
             profileImage=await uploadOnCloudinary(req.file.path)
         }
@@ -75,7 +75,7 @@ export const editProfile=async(req,res)=>{
 
     }
 }
-// to get profile of suggested users
+// to get profile 
 export const getProfile=async(req,res)=>{
     try{
 
