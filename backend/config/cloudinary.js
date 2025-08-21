@@ -1,27 +1,32 @@
 import { v2 as cloudinary } from 'cloudinary'
-import fs from "fs" //to delete file from local folder after sending file in cloudinary
+import fs from "fs"
 
-const uploadOnCloudinary=async(file)=>{
-try{
-        cloudinary.config({ 
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-  api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret:process.env.CLOUDINARY_API_SECRET
-});
-  const result=await cloudinary.uploader
-  .upload(file,{
-    resource_type:"auto"    //auto mean it understand video and image automatically
-  })
+const uploadOnCloudinary = async (file) => {
+  try {
+    cloudinary.config({ 
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+      api_key: process.env.CLOUDINARY_API_KEY, 
+      api_secret: process.env.CLOUDINARY_API_SECRET
+    });
 
-  fs.unlinkSync(file)
+    const result = await cloudinary.uploader.upload(file, {
+      resource_type: "auto"
+    });
 
-  return result.secure_url
-}
-catch(error){
-    fs.unlinkSync(file)
-    console.log(error)
-}
-  
-}
+    
+    if (fs.existsSync(file)) {
+      fs.unlinkSync(file);
+    }
 
-export default uploadOnCloudinary
+    return result.secure_url;
+  } 
+  catch (error) {
+    
+    if (fs.existsSync(file)) {
+      fs.unlinkSync(file);
+    }
+    console.log("Cloudinary upload error:", error);
+  }
+};
+
+export default uploadOnCloudinary;

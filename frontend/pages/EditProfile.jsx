@@ -8,7 +8,9 @@ import { useState } from 'react';
 import { serverUrl } from '../src/App';
 import axios from 'axios'
 import { setProfileData, setUserData } from '../src/redux/userSlice';
-import { FaClipboard } from "react-icons/fa";
+
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 
 
@@ -61,9 +63,12 @@ const EditProfile = () => {
 
         }
         catch(error){
-            console.log(error)
-            setloading(false)
+        if(error.response){
+            console.log("Error Response:", error.response.data)  
         }
+        console.log(error)
+        setloading(false)
+    }
     }
   return (
     <div className='w-full min-h-[100vh] bg-black flex items-center flex-col gap-[20px] '>
@@ -111,9 +116,10 @@ const EditProfile = () => {
         <button className='px-[10px] w-[60%] max-w-[400px] py-[5px] h-[50px] bg-white cursor-pointer rounded-2xl'
         
         onClick={handleProfile}
+          disabled={loading}
         
         >
-            {loading?<FaClipboard size={30} color="black" />:"Save Profile"}
+            {loading?<ClipLoader size={30} color="black" />:"Save Profile"}
             
         </button>
 
