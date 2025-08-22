@@ -9,6 +9,7 @@ import cors from "cors"
 import authRouter from './routes/auth.routes.js';
 
 import userRouter from './routes/user.routes.js'
+import postRouter from './routes/post.routes.js'
 
 
 const port=process.env.PORT ||5000 //IF 8000 NOT WORKING THEN 5000
@@ -24,6 +25,7 @@ app.use(cors({                               //frontend connection
 
 app.use("/api/auth",authRouter)
 app.use("/api/user",userRouter)
+app.use("/api/post",postRouter)
 
 
 app.listen(port,()=>{

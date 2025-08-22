@@ -24,7 +24,15 @@ const postSchema=new mongoose.Schema({
 
     ],
     comments:[
-         {type:mongoose.Schema.Types.ObjectId,ref:"User",required:true}
+        {
+        author:{
+         type:mongoose.Schema.Types.ObjectId,ref:"User",},
+         message:{
+            type:string
+         }
+        }
+        
+
     ]  
 
 
