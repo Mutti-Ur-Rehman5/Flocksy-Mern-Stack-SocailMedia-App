@@ -7,7 +7,7 @@ import { comment, getAllpost, like, saved, uploadPost } from "../controllers/pos
 
 const postRouter=express.Router()
 
-userRouter.get('/upload',isAuth,upload.single("media"),uploadPost)   
+postRouter.get('/upload',isAuth,upload.single("media"),uploadPost)   
                                                  
 
 postRouter.get("/getAll",isAuth,getAllpost)

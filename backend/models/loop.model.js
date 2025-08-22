@@ -9,16 +9,23 @@ const loopSchema=new mongoose.Schema({
             required:true
         },
         caption:{
-            type:string
+            type:String
         },
         likes:[
              {type:mongoose.Schema.Types.ObjectId,ref:"User",required:true}
     
         ],
-        comments:[
-             {type:mongoose.Schema.Types.ObjectId,ref:"User",required:true}
-        ]  
-    
+          comments:[
+               {
+               author:{
+                type:mongoose.Schema.Types.ObjectId,ref:"User",},
+                message:{
+                   type:String
+                }
+               }
+               
+       
+           ]  
 
 
 

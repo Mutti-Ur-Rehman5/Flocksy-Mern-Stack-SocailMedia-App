@@ -17,7 +17,7 @@ const postSchema=new mongoose.Schema({
         required:true
     },
     caption:{
-        type:string
+        type:String
     },
     likes:[
          {type:mongoose.Schema.Types.ObjectId,ref:"User",required:true}
@@ -28,7 +28,7 @@ const postSchema=new mongoose.Schema({
         author:{
          type:mongoose.Schema.Types.ObjectId,ref:"User",},
          message:{
-            type:string
+            type:String
          }
         }
         
