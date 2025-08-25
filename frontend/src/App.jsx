@@ -6,15 +6,16 @@ import Home from "../pages/Home"
 import Profile from '../pages/Profile'
 import ForgotPassword from '../pages/ForgotPassword';
 import { useSelector } from 'react-redux'
-import getCurrentUser from './hooks/getCurrentUser'
-import getSuggestedUser from "./hooks/getSuggestedUser"
+import CurrentUser from './hooks/getCurrentUser'
+import SuggestedUser from "./hooks/getSuggestedUser"
 import EditProfile from '../pages/EditProfile'
+
 
 export const serverUrl = "http://localhost:8000";
 
 const App = () => {
-  getCurrentUser()
-  getSuggestedUser()
+  CurrentUser()
+  SuggestedUser()
   const { userData } = useSelector(state => state.user) // useSelector hook to access redux data
 
   return (
@@ -25,6 +26,7 @@ const App = () => {
       <Route path='/' element={userData ? <Home /> : <Navigate to="/signin" />} />
       <Route  path='/editprofile' element={userData?<EditProfile/>:<Navigate to={"/signin"}/>}/>
       <Route  path='/profile/:Username' element={userData?<Profile/>:<Navigate to={"/signin"}/>}/>
+      
     </Routes>
     
   )

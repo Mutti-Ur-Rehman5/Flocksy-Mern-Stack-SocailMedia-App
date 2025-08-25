@@ -34,10 +34,10 @@ export const signup=async(req,res)=>{
 
         const token=await gentoken(user._id)                        //token ma store ho jaye ga "token",token
         res.cookie('token',token,{
-            httponly:true,
-            maxage:10*365*24*60*60*1000,
+            httpOnly:true,
+            maxAge:10*365*24*60*60*1000,
             secure:false,
-            sameSite:"Strict"
+            sameSite:"Lax"
 
 
      } ) 
@@ -78,10 +78,10 @@ export const signIn=async(req,res)=>{
 
         const token=await gentoken(user._id)                        
         res.cookie('token',token,{
-            httponly:true,
-            maxage:10*365*24*60*60*1000,
+            httpOnly:true,
+            maxAge:10*365*24*60*60*1000,
             secure:false,
-            sameSite:"Strict"
+            sameSite:"Lax"
 
 
      } ) 

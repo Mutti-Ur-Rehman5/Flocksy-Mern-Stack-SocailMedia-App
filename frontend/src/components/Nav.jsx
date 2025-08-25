@@ -17,11 +17,11 @@ const Nav = () => {
             <FaHome className='text-white w-[25px] h-[25px] cursor-pointer' />
         </div>
         <div>
-            <FaSearch className='text-white w-[25px] h-[25px]' />
+            <FaSearch className='text-white w-[25px] h-[25px] cursor-pointer' />
 
         </div>
-        <div>
-            <RiFolderVideoLine className='text-white w-[25px] h-[25px]'/>
+        <div >
+            <RiFolderVideoLine className='text-white w-[25px] h-[25px] cursor-pointer'/>
 
         </div>
         <div>

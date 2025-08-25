@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { serverUrl } from '../App'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSuggestedUsers,setUserData} from '../redux/userSlice'   
+import { setSuggestedUsers} from '../redux/userSlice'   
 
 const SuggestedUser = () => {
 
@@ -21,7 +21,8 @@ const SuggestedUser = () => {
     }
 
     fetchUser()
-  }, [userData])   
+  }, [userData,dispatch])  
+   
 }
 
 export default SuggestedUser

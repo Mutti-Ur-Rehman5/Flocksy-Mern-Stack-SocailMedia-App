@@ -29,13 +29,13 @@ app.use("/api/auth",authRouter)
 app.use("/api/user",userRouter)
 app.use("/api/post",postRouter)
 app.use("/api/loop",loopRouter)
-app.use("api/story/",storyRouter)
+app.use("/api/story/",storyRouter)
 
 
 app.listen(port,()=>{
     connecttoDb()
     console.log('server started')
-     console.log(`🚀 Server started on port ${port}`);
+     console.log(` Server started on port ${port}`);
 })
 
 
